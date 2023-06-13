@@ -1,7 +1,16 @@
-type Props = {};
+import { SelectedPage } from "@/types";
+import Link from "./Link";
+import ActionButton from "../ActionButton";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
-const Navbar = (props: Props) => {
+type Props = {
+  selectedPage: SelectedPage;
+  setSelectedPage: (value: SelectedPage) => void;
+};
+
+const Navbar = ({ selectedPage, setSelectedPage }: Props) => {
   const flexBetween = `flex items-center justify-between`;
+  const isAboveMediumScreens = useMediaQuery("(min-width: 768px)");
 
   return (
     <nav>
@@ -19,24 +28,32 @@ const Navbar = (props: Props) => {
           <div className={`${flexBetween} flex-2 w-full gap-16 text-sm`}>
             {/* INNER LEFT SIDE */}
             <div className={`${flexBetween} gap-6`}>
-              <p className="duration-250 cursor-pointer transition hover:text-white">
-                Home
-              </p>
-              <p className="duration-250 cursor-pointer text-[#ffd8b1] transition hover:text-white hover:underline hover:underline-offset-2">
-                Our Classes
-              </p>
-              <p className="duration-250 cursor-pointer transition hover:text-white">
-                Testimonials
-              </p>
-              <p className="duration-250 cursor-pointer transition hover:text-white">
-                Contact Us
-              </p>
+              <Link
+                page="Home"
+                selectedPage={selectedPage}
+                setSelectedPage={setSelectedPage}
+              />
+              <Link
+                page="Our Classes"
+                selectedPage={selectedPage}
+                setSelectedPage={setSelectedPage}
+              />
+              <Link
+                page="Testimonials"
+                selectedPage={selectedPage}
+                setSelectedPage={setSelectedPage}
+              />
+              <Link
+                page="Contact Us"
+                selectedPage={selectedPage}
+                setSelectedPage={setSelectedPage}
+              />
             </div>
 
             {/* INNER RIGHT SIDE */}
             <div className={`${flexBetween} gap-6`}>
               <p>Sign Up</p>
-              <p>Become a Member</p>
+              <ActionButton>Become a Member</ActionButton>
             </div>
           </div>
         </div>
