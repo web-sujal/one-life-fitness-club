@@ -11,7 +11,7 @@ function App() {
   return (
     <div className="app">
       <Navbar selectedPage={selectedPage} setSelectedPage={setSelectedPage} />
-      <Home />
+      <Home setSelectedPage={setSelectedPage} />
     </div>
   );
 }

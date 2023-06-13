@@ -4,7 +4,9 @@ import ActionButton from "../ActionButton";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { HiBars3 } from "react-icons/hi2";
 import { AiOutlineClose } from "react-icons/ai";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { motion } from "framer-motion";
+import useOnClickOutside from "@/hooks/useOnClickOutside";
 
 type Props = {
   selectedPage: SelectedPage;
@@ -15,11 +17,23 @@ const Navbar = ({ selectedPage, setSelectedPage }: Props) => {
   const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false);
   const flexBetween = `flex items-center justify-between`;
   const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
+  const navRef = useRef(null);
+
+  const handler = () => {
+    if (isMenuToggled) {
+      setIsMenuToggled(false);
+    }
+  };
+
+  useOnClickOutside({ ref: navRef, handler });
 
   return (
     <nav>
-      <div
+      <motion.div
         className={`${flexBetween} fixed top-0 z-30 flex w-full bg-secondary-300 py-4 text-gray-50 drop-shadow`}
+        initial={{ y: "-50px", opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: "tween", duration: 0.5, ease: "easeOut" }}
       >
         <div className={`${flexBetween} mx-auto flex w-5/6 gap-8`}>
           {/* LOGO */}
@@ -73,7 +87,13 @@ const Navbar = ({ selectedPage, setSelectedPage }: Props) => {
 
         {/* MOBILE MENU MODAL */}
         {!isAboveMediumScreens && isMenuToggled && (
-          <div className="absolute right-0 top-0 z-40 h-screen w-[300px]  bg-secondary-100 text-lightCream drop-shadow-xl">
+          <motion.div
+            className="absolute right-0 top-0 z-40 h-screen w-[300px]  bg-secondary-100 text-lightCream drop-shadow-xl"
+            initial={{ x: "100px", opacity: 0 }}
+            animate={{ x: 10, opacity: 1 }}
+            transition={{ type: "spring", stiffness: 70 }}
+            ref={navRef}
+          >
             <div className="mx-auto my-10 flex w-5/6 items-center justify-end pr-2">
               <AiOutlineClose
                 className="text-2xl text-lightCream transition duration-150 hover:scale-105 hover:text-white"
@@ -102,9 +122,9 @@ const Navbar = ({ selectedPage, setSelectedPage }: Props) => {
                 setSelectedPage={setSelectedPage}
               />
             </div>
-          </div>
+          </motion.div>
         )}
-      </div>
+      </motion.div>
     </nav>
   );
 };
