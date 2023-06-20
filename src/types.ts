@@ -4,3 +4,9 @@ export enum SelectedPage {
   Testimonials = "testimonials",
   ContactUs = "contactus",
 }
+
+export interface OurClassesType {
+  img: string;
+  title: string;
+  description: string;
+}

@@ -30,7 +30,7 @@ const Navbar = ({ selectedPage, setSelectedPage }: Props) => {
   return (
     <nav>
       <motion.div
-        className={`${flexBetween} fixed top-0 z-30 flex w-full bg-secondary-300 py-4 text-gray-50 drop-shadow`}
+        className={`${flexBetween} fixed top-0 z-30 flex w-full bg-secondary-300 py-4 text-gray-50 drop-shadow-md`}
         initial={{ y: "-50px", opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: "tween", duration: 0.5, ease: "easeOut" }}
